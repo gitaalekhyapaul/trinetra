@@ -35,4 +35,8 @@ export const errors = {
     httpStatus: 400,
     message: "User already exists, please login.",
   },
+  USER_DNE: {
+    httpStatus: 401,
+    message: "E-mail or Password incorrect!",
+  },
 };
