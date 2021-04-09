@@ -5,7 +5,7 @@ import { join } from "path";
 
 import { errorHandler, ApiError } from "./error/error.handler";
 import { errors } from "./error/error.constants";
-
+import authRoutes from "./auth/auth.routes";
 import { DatabaseService } from "./services/database.service";
 
 dotenvConfig();
@@ -36,6 +36,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/v1/auth", authRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(join(__dirname, "..", "client", "build")));

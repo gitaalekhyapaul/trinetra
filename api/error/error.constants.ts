@@ -31,4 +31,8 @@ export const errors = {
     httpStatus: 500,
     message: "MongoDB Query Error",
   },
+  DUPLICATE_USER: {
+    httpStatus: 400,
+    message: "User already exists, please login.",
+  },
 };
