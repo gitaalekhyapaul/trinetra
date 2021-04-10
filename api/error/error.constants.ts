@@ -39,4 +39,8 @@ export const errors = {
     httpStatus: 401,
     message: "E-mail or Password incorrect!",
   },
+  FORBIDDEN: {
+    httpStatus: 403,
+    message: "Action Forbidden.",
+  },
 };
