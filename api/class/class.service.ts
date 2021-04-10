@@ -6,6 +6,7 @@ import { ObjectId } from "mongodb";
 import { errors } from "../error/error.constants";
 import { DatabaseService } from "../services/database.service";
 import { postCreateRequest, classDBSchema } from "./class.schema";
+import { userDBSchema, userInfo } from "../auth/auth.schema";
 
 export const verifyTeacher = async (
   req: Request,
@@ -63,4 +64,28 @@ export const postCreate = async (
   );
   if (res2.modifiedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
   return { code: classCode };
+};
+
+export const postJoin = async (code: string, user: userInfo) => {
+  const dbService = await DatabaseService.getInstance();
+  const userExists = await (
+    await dbService.getDb("users")
+  ).findOne<userDBSchema>({
+    email: user.email,
+    role: user.role,
+  });
+  if (!userExists) throw errors.NOT_FOUND;
+  const classExists = await (
+    await dbService.getDb("classes")
+  ).findOne<classDBSchema>({ code });
+  if (!classExists) throw errors.NOT_FOUND;
+  const result = await (await dbService.getDb("users")).updateOne(
+    { email: userExists.email },
+    {
+      $addToSet: {
+        classes: classExists._id,
+      },
+    }
+  );
+  if (result.modifiedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
 };
