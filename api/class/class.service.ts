@@ -170,3 +170,39 @@ export const deleteTimetable = async (
     period: request.slot.period,
   };
 };
+
+export const getAllClasses = async (
+  user: userInfo
+): Promise<Array<classDBSchema>> => {
+  const db = await DatabaseService.getInstance().getDb("users");
+  const classes = await db
+    .aggregate<{ classDetails: Array<classDBSchema> }>([
+      {
+        $match: {
+          email: user.email,
+          role: user.role,
+        },
+      },
+      {
+        $lookup: {
+          from: "classes",
+          localField: "classes",
+          foreignField: "_id",
+          as: "classDetails",
+        },
+      },
+      {
+        $project: {
+          classes: 0,
+          _id: 0,
+          "classDetails._id": 0,
+          email: 0,
+          password: 0,
+          role: 0,
+        },
+      },
+    ])
+    .toArray();
+  if (!classes) return [];
+  return classes[0].classDetails;
+};

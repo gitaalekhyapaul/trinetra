@@ -18,6 +18,7 @@ import {
   postJoin,
   putEdit,
   deleteTimetable,
+  getAllClasses,
 } from "./class.service";
 
 const router: Router = Router();
@@ -95,6 +96,22 @@ const handleDelete = async (
   }
 };
 
+const handleGetAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const classes = await getAllClasses(res.locals.user);
+    res.json({
+      success: true,
+      classes,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 router.post(
   "/create",
   validateJwt(),
@@ -125,5 +142,7 @@ router.delete(
   validateQuery("body", deleteRequestSchema),
   handleDelete
 );
+
+router.get("/all", validateJwt(), handleGetAll);
 
 export default router;
