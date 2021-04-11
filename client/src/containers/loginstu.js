@@ -1,52 +1,67 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import Navbar from "./navbar";
 
 function Login() {
   const [email, setEmail] = useState(null);
   const [passwd, setPasswd] = useState(null);
-
-  const onSubmitHandler = () => {
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", passwd);
-    axios.post("http://localhost:9000/stulogin", data);
+  const mystylee = {
+    backgroundColor: "powderblue",
   };
-  return (
-    <div className="container my-5 py-5">
-      <div className="row justify-content-center">
-        <div className="col-11 col-lg-5">
-          <div>
-            <h1 className="font-weight-light text-center py-5">
-              <span className="text-info">Log </span>In
-            </h1>
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email *</label>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password *</label>
-            <input
-              type="password"
-              name="passwd"
-              className="form-control"
-              onChange={(e) => setPasswd(e.target.value)}
-            />
-          </div>
+  const history = useHistory();
+  const onSubmitHandler = () => {
+    const data = { email: email, password: passwd };
+    axios.post("http://localhost:9000/stulogin", data);
+    history.push("/stuhome");
+  };
 
-          <button
-            type="submit"
-            className="btn btn-dark float-right"
-            style={{ backgroundColor: "black" }}
-            onClick={() => onSubmitHandler()}
-          >
-            Submit
-          </button>
+  return (
+    <div>
+      <Navbar />
+      <div className="container " style={mystylee}>
+        <div className="row justify-content-center">
+          <div className="col-11 col-lg-5">
+            <div>
+              <h1 className="font-weight-light text-center py-5">
+                <span className="text-info">Student </span> Log In
+              </h1>
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email *</label>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password *</label>
+              <input
+                type="password"
+                name="passwd"
+                className="form-control"
+                onChange={(e) => setPasswd(e.target.value)}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-dark float-right"
+              style={{ backgroundColor: "black" }}
+              onClick={() => onSubmitHandler()}
+            >
+              Submit
+            </button>
+            <br></br>
+            <div className="">
+              Not Sigup?! Sign up now
+              <Link to="/student-signup" className="ml-auto mx-3">
+                <button className="btn btn-outline-info ">Sign Up</button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
