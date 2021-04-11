@@ -16,8 +16,8 @@ const handlePostSignup = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password, role } = req.body as postSignupRequest;
-    const { authToken } = await postSignup({ email, password, role });
+    const { name, email, password, role } = req.body as postSignupRequest;
+    const { authToken } = await postSignup({ name, email, password, role });
     res.json({
       success: true,
       authToken,

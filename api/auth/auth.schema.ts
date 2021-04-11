@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 export interface userInfo {
+  name: string;
   email: string;
   role: "teacher" | "student";
 }
@@ -20,6 +21,7 @@ export const postLoginRequestSchema = yup
   .required();
 
 export const postSignupRequestSchema = postLoginRequestSchema.shape({
+  name: yup.string().trim().required(),
   role: yup
     .string()
     .trim()
@@ -31,6 +33,7 @@ export type postSignupRequest = yup.InferType<typeof postSignupRequestSchema>;
 export type postLoginRequest = yup.InferType<typeof postLoginRequestSchema>;
 
 export interface userDBSchema {
+  name: string;
   email: string;
   password: string;
   role: "teacher" | "student";

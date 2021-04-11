@@ -33,7 +33,7 @@ const handlePostCreate = async (
 ) => {
   try {
     const { section } = req.body as postCreateRequest;
-    const { code } = await postCreate({ section }, res.locals.user.email);
+    const { code } = await postCreate({ section }, res.locals.user);
     res.json({
       success: true,
       code,

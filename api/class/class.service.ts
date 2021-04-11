@@ -46,12 +46,12 @@ const initTable = (): Map<
 
 export const postCreate = async (
   classDetails: postCreateRequest,
-  facultyAdvisor: string
+  facultyAdvisor: userInfo
 ): Promise<{ code: string }> => {
   const classCode = customAlphabet(alphanumeric, 10)();
   let classObj: classDBSchema = {
     code: classCode,
-    facultyAdvisor,
+    facultyAdvisor: `${facultyAdvisor.name} (${facultyAdvisor.email})`,
     section: classDetails.section,
     timetable: initTable(),
   };
@@ -60,7 +60,7 @@ export const postCreate = async (
   if (res1.insertedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
   const userDb = await DatabaseService.getInstance().getDb("users");
   const res2 = await userDb.updateOne(
-    { email: facultyAdvisor, role: "teacher" },
+    { email: facultyAdvisor.email, role: "teacher" },
     {
       $push: {
         classes: new ObjectId(res1.insertedId),
@@ -203,7 +203,7 @@ export const getAllClasses = async (
       },
     ])
     .toArray();
-  if (!classes) return [];
+  if (classes.length <= 0) return [];
   return classes[0].classDetails;
 };
 

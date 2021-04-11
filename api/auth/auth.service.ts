@@ -10,6 +10,7 @@ import {
 } from "./auth.schema";
 
 const createJwt = async (user: {
+  name: string;
   email: string;
   role: string;
 }): Promise<{ authToken: string }> => {
@@ -35,7 +36,11 @@ export const postSignup = async (
   };
   const result = await db.insertOne(entry);
   if (result.insertedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
-  return await createJwt({ email: user.email, role: user.role });
+  return await createJwt({
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  });
 };
 
 export const postLogin = async (
@@ -46,5 +51,9 @@ export const postLogin = async (
   if (!userExists) throw errors.USER_DNE;
   const verifyPassword = await compare(user.password, userExists.password);
   if (!verifyPassword) throw errors.USER_DNE;
-  return await createJwt({ email: user.email, role: userExists.role });
+  return await createJwt({
+    name: userExists.name,
+    email: user.email,
+    role: userExists.role,
+  });
 };
