@@ -5,7 +5,11 @@ import { ObjectId } from "mongodb";
 
 import { errors } from "../error/error.constants";
 import { DatabaseService } from "../services/database.service";
-import { postCreateRequest, classDBSchema } from "./class.schema";
+import {
+  postCreateRequest,
+  classDBSchema,
+  putEditRequest,
+} from "./class.schema";
 import { userDBSchema, userInfo } from "../auth/auth.schema";
 
 export const verifyTeacher = async (
@@ -87,5 +91,46 @@ export const postJoin = async (code: string, user: userInfo) => {
       },
     }
   );
-  if (result.modifiedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
+  if (result.matchedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
+};
+
+export const putEdit = async (
+  user: userInfo,
+  request: putEditRequest
+): Promise<{
+  [day: string]: { [period: string]: { subject: string; faculty: string } };
+}> => {
+  const dbService = await DatabaseService.getInstance();
+  const classExists = await (
+    await dbService.getDb("classes")
+  ).findOne<classDBSchema>({
+    code: request.code,
+  });
+  if (!classExists) throw errors.NOT_FOUND;
+  const hasClass = await (await dbService.getDb("users")).countDocuments({
+    email: user.email,
+    role: user.role,
+    classes: classExists._id,
+  });
+  if (!hasClass) throw errors.NOT_FOUND;
+  const subjectChange = `timetable.${request.slot.day}.${request.slot.period}.subject`;
+  const facultyChange = `timetable.${request.slot.day}.${request.slot.period}.faculty`;
+  const result = await (await dbService.getDb("classes")).updateOne(
+    { code: request.code },
+    {
+      $set: {
+        [subjectChange]: request.change.subject,
+        [facultyChange]: request.change.faculty,
+      },
+    }
+  );
+  if (result.matchedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
+  return {
+    [request.slot.day]: {
+      [request.slot.period]: {
+        subject: request.change.subject,
+        faculty: request.change.faculty,
+      },
+    },
+  };
 };
