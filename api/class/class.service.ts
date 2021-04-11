@@ -9,6 +9,7 @@ import {
   postCreateRequest,
   classDBSchema,
   putEditRequest,
+  deleteRequest,
 } from "./class.schema";
 import { userDBSchema, userInfo } from "../auth/auth.schema";
 
@@ -132,5 +133,40 @@ export const putEdit = async (
         faculty: request.change.faculty,
       },
     },
+  };
+};
+
+export const deleteTimetable = async (
+  user: userInfo,
+  request: deleteRequest
+): Promise<{ day: string; period: string }> => {
+  const dbService = await DatabaseService.getInstance();
+  const classExists = await (
+    await dbService.getDb("classes")
+  ).findOne<classDBSchema>({
+    code: request.code,
+  });
+  if (!classExists) throw errors.NOT_FOUND;
+  const hasClass = await (await dbService.getDb("users")).countDocuments({
+    email: user.email,
+    role: user.role,
+    classes: classExists._id,
+  });
+  if (!hasClass) throw errors.NOT_FOUND;
+  const subjectChange = `timetable.${request.slot.day}.${request.slot.period}.subject`;
+  const facultyChange = `timetable.${request.slot.day}.${request.slot.period}.faculty`;
+  const result = await (await dbService.getDb("classes")).updateOne(
+    { code: request.code },
+    {
+      $set: {
+        [subjectChange]: "",
+        [facultyChange]: "",
+      },
+    }
+  );
+  if (result.matchedCount <= 0) throw errors.MONGODB_QUERY_ERROR;
+  return {
+    day: request.slot.day,
+    period: request.slot.period,
   };
 };

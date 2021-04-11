@@ -1,8 +1,9 @@
-import { Request, Response, NextFunction, Router } from "express";
+import { Request, Response, NextFunction, Router, json } from "express";
 
 import { validateJwt } from "../middlewares/validate-jwt";
 import validateQuery from "../middlewares/validate-query";
 import {
+  deleteRequest,
   deleteRequestSchema,
   postCreateRequest,
   postCreateRequestSchema,
@@ -11,7 +12,13 @@ import {
   putEditRequest,
   putEditRequestSchema,
 } from "./class.schema";
-import { verifyTeacher, postCreate, postJoin, putEdit } from "./class.service";
+import {
+  verifyTeacher,
+  postCreate,
+  postJoin,
+  putEdit,
+  deleteTimetable,
+} from "./class.service";
 
 const router: Router = Router();
 
@@ -71,6 +78,18 @@ const handleDelete = async (
   next: NextFunction
 ) => {
   try {
+    const { code, slot } = req.body as deleteRequest;
+    const { day, period } = await deleteTimetable(res.locals.user, {
+      code,
+      slot,
+    });
+    res.json({
+      success: true,
+      change: {
+        day,
+        period,
+      },
+    });
   } catch (err) {
     next(err);
   }
