@@ -11,6 +11,8 @@ import {
   postJoinRequestSchema,
   putEditRequest,
   putEditRequestSchema,
+  getClassRequest,
+  getClassRequestSchema,
 } from "./class.schema";
 import {
   verifyTeacher,
@@ -19,6 +21,7 @@ import {
   putEdit,
   deleteTimetable,
   getAllClasses,
+  getClass,
 } from "./class.service";
 
 const router: Router = Router();
@@ -112,6 +115,23 @@ const handleGetAll = async (
   }
 };
 
+const handleGetClass = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { code } = req.params as getClassRequest;
+    const classDetails = await getClass(res.locals.user, code);
+    res.json({
+      success: true,
+      class: classDetails,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 router.post(
   "/create",
   validateJwt(),
@@ -144,5 +164,11 @@ router.delete(
 );
 
 router.get("/all", validateJwt(), handleGetAll);
+router.get(
+  "/:code",
+  validateJwt(),
+  validateQuery("params", getClassRequestSchema),
+  handleGetClass
+);
 
 export default router;

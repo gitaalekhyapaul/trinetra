@@ -206,3 +206,24 @@ export const getAllClasses = async (
   if (!classes) return [];
   return classes[0].classDetails;
 };
+
+export const getClass = async (
+  user: userInfo,
+  code: string
+): Promise<classDBSchema> => {
+  const dbService = await DatabaseService.getInstance();
+  const classExists = await (
+    await dbService.getDb("classes")
+  ).findOne<classDBSchema>({
+    code: code,
+  });
+  if (!classExists) throw errors.NOT_FOUND;
+  const userHasClass = await (await dbService.getDb("users")).countDocuments({
+    email: user.email,
+    role: user.role,
+    classes: classExists._id,
+  });
+  if (!userHasClass) throw errors.NOT_FOUND;
+  delete classExists._id;
+  return classExists;
+};

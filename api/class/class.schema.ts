@@ -72,3 +72,11 @@ export const deleteRequestSchema = yup
   .required();
 
 export type deleteRequest = yup.InferType<typeof deleteRequestSchema>;
+
+export const getClassRequestSchema = yup
+  .object({
+    code: codeValidator,
+  })
+  .required();
+
+export type getClassRequest = yup.InferType<typeof getClassRequestSchema>;
