@@ -18,7 +18,7 @@ function homestu() {
           <div className="card-body">
             <h4 className="card-title">Class 10</h4>
             <p className="card-text">XYZ sir</p>
-            <Link to={`/stutable`} className="stretched-link"></Link>
+            <Link to={`/teachtable`} className="stretched-link"></Link>
           </div>
         </div>
       </div>

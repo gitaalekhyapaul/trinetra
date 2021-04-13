@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import Navbar from "./navbar";
 
-function Login() {
-  const [email, setEmail] = useState(null);
-  const [passwd, setPasswd] = useState(null);
+function ChangePage() {
+  const [Change, setChange] = useState(null);
+  const [code, setCode] = useState(null);
   const mystylee = {
     backgroundColor: "powderblue",
   };
@@ -13,8 +14,8 @@ function Login() {
   const history = useHistory();
 
   const onSubmitHandler = () => {
-    const data = { email: email, password: passwd };
-    axios.post("http://localhost:9000/teclogin", data);
+    const data = [code, Change];
+    axios.post("http://localhost:9000/tablechange", data);
     history.push("/teachhome");
   };
   return (
@@ -25,25 +26,25 @@ function Login() {
           <div className="col-11 col-lg-5">
             <div>
               <h1 className="font-weight-light text-center py-5">
-                <span className="text-info">Teacher </span>Log In
+                <span className="text-info">Change </span>Period
               </h1>
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email *</label>
+              <label htmlFor="name">Period Code</label>
               <input
-                type="email"
-                name="email"
+                type="name"
+                name="name"
                 className="form-control"
-                onChange={(e) => setEmail(e)}
+                onChange={(e) => (e = setChange(e.target.value))}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password *</label>
+              <label htmlFor="name">Enter Changes</label>
               <input
-                type="password"
-                name="passwd"
+                type="code"
+                name="code"
                 className="form-control"
-                onChange={(e) => setPasswd(e)}
+                onChange={(e) => setCode(e.target.value)}
               />
             </div>
 
@@ -55,13 +56,6 @@ function Login() {
             >
               Submit
             </button>
-            <br></br>
-            <div>
-              Not Sigup?! Sign up now{" "}
-              <Link to="/teacher-signup" className="ml-auto mx-3">
-                <button className="btn btn-outline-info ">Sign Up</button>
-              </Link>
-            </div>
           </div>
         </div>
       </div>
@@ -69,4 +63,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ChangePage;

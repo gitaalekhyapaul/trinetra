@@ -6,6 +6,9 @@ import stuSign from "./containers/signupstu";
 import tecSign from "./containers/signuptec";
 import stuhome from "./containers/homestu/homestu";
 import stutable from "./containers/tablestu/tablestu";
+import teachhome from "./containers/hometeach/hometeach";
+import teachtable from "./containers/tableteach/tableteach";
+import changetable from "./containers/changepage";
 // import tecLogin from "./containers/logintec";
 import { BrowserRouter, Route } from "react-router-dom";
 import Footer from "./containers/footer";
@@ -21,6 +24,9 @@ function App() {
       <Route exact path="/teacher-signup" component={tecSign} />
       <Route exact path="/stuhome" component={stuhome} />
       <Route exact path="/stutable" component={stutable} />
+      <Route exact path="/teachhome" component={teachhome} />
+      <Route exact path="/teachtable" component={teachtable} />
+      <Route exact path="/changetable" component={changetable} />
       <Footer />
     </BrowserRouter>
   );
