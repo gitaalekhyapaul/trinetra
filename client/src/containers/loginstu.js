@@ -14,7 +14,7 @@ function Login() {
 
   const onSubmitHandler = () => {
     const data = { email: email, password: passwd };
-    axios.post("http://localhost:9000/stulogin", data);
+    axios.post("localhost:4200/api/v1/auth/login", data);
     history.push("/stuhome");
   };
 

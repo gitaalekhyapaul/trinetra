@@ -8,7 +8,7 @@ function Login() {
   const [email, setEmail] = useState(null);
   const [passwd, setPasswd] = useState(null);
   const [name, setName] = useState(null);
-  const [code, setCode] = useState(null);
+
   const mystylee = {
     backgroundColor: "powderblue",
   };
@@ -16,8 +16,13 @@ function Login() {
   const history = useHistory();
 
   const onSubmitHandler = () => {
-    const data = { name: name, email: email, password: passwd, code: code };
-    axios.post("http://localhost:9000/stusignup", data);
+    const data = {
+      name: name,
+      email: email,
+      password: passwd,
+      role: "student",
+    };
+    axios.post("localhost:4200/api/v1/auth/signup", data);
     history.push("/student-login");
   };
   return (
@@ -56,15 +61,6 @@ function Login() {
                 name="passwd"
                 className="form-control"
                 onChange={(e) => setPasswd(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Class Code*</label>
-              <input
-                type="classcode"
-                name="code"
-                className="form-control"
-                onChange={(e) => setCode(e.target.value)}
               />
             </div>
 

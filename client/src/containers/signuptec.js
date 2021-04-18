@@ -6,13 +6,18 @@ function Login() {
   const [email, setEmail] = useState(null);
   const [passwd, setPasswd] = useState(null);
   const [name, setName] = useState(null);
-  const [code, setCode] = useState(null);
+
   const mystylee = {
     backgroundColor: "powderblue",
   };
   const onSubmitHandler = () => {
-    const data = { name: name, email: email, password: passwd, code: code };
-    axios.post("http://localhost:9000/tecsignup", data);
+    const data = {
+      name: name,
+      email: email,
+      password: passwd,
+      role: "teacher",
+    };
+    axios.post("localhost:4200/api/v1/auth/signup", data);
   };
   return (
     <div>
@@ -52,15 +57,7 @@ function Login() {
                 onChange={(e) => setPasswd(e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="name">Class Code*</label>
-              <input
-                type="classcode"
-                name="code"
-                className="form-control"
-                onChange={(e) => setCode(e.target.value)}
-              />
-            </div>
+
             <button
               type="submit"
               className="btn btn-dark float-right"
