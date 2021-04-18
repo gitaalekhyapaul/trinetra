@@ -15,8 +15,9 @@ function Login() {
   const onSubmitHandler = () => {
     const data = { email: email, password: passwd };
     axios.post("http://localhost:9000/teclogin", data);
-    history.push("/teachhome");
+    history.push("/teachome");
   };
+
   return (
     <div>
       <Navbar />
@@ -25,7 +26,7 @@ function Login() {
           <div className="col-11 col-lg-5">
             <div>
               <h1 className="font-weight-light text-center py-5">
-                <span className="text-info">Teacher </span>Log In
+                <span className="text-info">Teacher </span> Log In
               </h1>
             </div>
             <div className="form-group">
@@ -34,7 +35,7 @@ function Login() {
                 type="email"
                 name="email"
                 className="form-control"
-                onChange={(e) => setEmail(e)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -43,7 +44,7 @@ function Login() {
                 type="password"
                 name="passwd"
                 className="form-control"
-                onChange={(e) => setPasswd(e)}
+                onChange={(e) => setPasswd(e.target.value)}
               />
             </div>
 
@@ -56,9 +57,9 @@ function Login() {
               Submit
             </button>
             <br></br>
-            <div>
-              Not Sigup?! Sign up now{" "}
-              <Link to="/teacher-signup" className="ml-auto mx-3">
+            <div className="">
+              Not Sigup?! Sign up now
+              <Link to="/student-signup" className="ml-auto mx-3">
                 <button className="btn btn-outline-info ">Sign Up</button>
               </Link>
             </div>

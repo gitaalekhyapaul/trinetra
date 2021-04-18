@@ -14,9 +14,9 @@ function ChangePage() {
   const history = useHistory();
 
   const onSubmitHandler = () => {
-    const data = [code, Change];
+    const data = { code: code, change: Change };
     axios.post("http://localhost:9000/tablechange", data);
-    history.push("/teachhome");
+    history.push("/teachome");
   };
   return (
     <div>
@@ -35,7 +35,7 @@ function ChangePage() {
                 type="name"
                 name="name"
                 className="form-control"
-                onChange={(e) => (e = setChange(e.target.value))}
+                onChange={(e) => (e = setCode(e.target.value))}
               />
             </div>
             <div className="form-group">
@@ -44,7 +44,7 @@ function ChangePage() {
                 type="code"
                 name="code"
                 className="form-control"
-                onChange={(e) => setCode(e.target.value)}
+                onChange={(e) => setChange(e.target.value)}
               />
             </div>
 
