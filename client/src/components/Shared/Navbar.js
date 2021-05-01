@@ -9,18 +9,15 @@ import {
   Protected as StudentProtected,
   TableView as studentTable,
 } from "../Student";
+import {
+  Login as teacherLogin,
+  Signup as teacherSignup,
+  Homepage as teacherHomepage,
+  Protected as TeacherProtected,
+  TableView as teacherTable,
+  TableChange as teacherTableChange,
+} from "../Teacher";
 import { UserContext } from "../Store/UserContext";
-// import PrivateRoute from "../PrivateRoute";
-// import PrivateRoute2 from "../PrivateRoute2";
-// import stuLogin from "./components/loginstu";
-// import tecLogin from "./components/logintec";
-// import stuSign from "./components/signupstu";
-// import tecSign from "./components/signuptec";
-// import stuhome from "./components/homestu/homestu";
-// import stutable from "./components/tablestu/tablestu";
-// import teachhome from "./components/hometeach/hometeach";
-// import teachtable from "./components/tableteach/tableteach";
-// import changetable from "./components/changepage";
 
 function Navbar() {
   const userContext = useContext(UserContext);
@@ -40,21 +37,31 @@ function Navbar() {
         <div className="site-content">
           <Switch>
             <Route exact path="/student/login" component={studentLogin} />
+            <Route exact path="/teacher/login" component={teacherLogin} />
             <Route exact path="/student/signup" component={studentSignup} />
+            <Route exact path="/teacher/signup" component={teacherSignup} />
             <StudentProtected
               exact
               path="/student/home"
               component={studentHomepage}
             />
+            <TeacherProtected
+              exact
+              path="/teacher/home"
+              component={teacherHomepage}
+            />
+            <TeacherProtected
+              path="/teacher/table/change/:classId"
+              component={teacherTableChange}
+            />
             <StudentProtected
               path="/student/table/:classId"
               component={studentTable}
             />
-            {/*<Route exact path="/teacher-signup" component={tecSign} />
-          <Route exact path="/teacher-login" component={tecLogin} />
-          <PrivateRoute2 exact path="/teachome" component={teachhome} />
-          <PrivateRoute2 exact path="/teachtable" component={teachtable} />
-        <PrivateRoute2 exact path="/changetable" component={changetable} /> */}
+            <TeacherProtected
+              path="/teacher/table/:classId"
+              component={teacherTable}
+            />
             <Route exact path="/" component={HomePage} />
             <Route path="*" component={HomePage} />
           </Switch>
