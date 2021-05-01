@@ -27,9 +27,10 @@
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
     "dev:server": "tsc-watch --onSuccess \"node ./build/app.js\"",
     "dev:client": "cd client && yarn start",
+    "build": "concurrently \"yarn build:server\" \"yarn build:client\"",
     "build:server": "tsc",
     "build:client": "cd client && yarn build",
-    "start:server": "node ./build/app.js",
+    "start": "node ./build/app.js",
     "postinstall": "cd client && yarn install"
   },
   "dependencies": {
