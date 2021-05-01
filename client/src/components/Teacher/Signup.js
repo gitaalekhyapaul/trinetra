@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import Navbar from "./shared/navbar";
+import { useHistory } from "react-router-dom";
+import { decode } from "jsonwebtoken";
 
-function Login() {
+import { UserContext } from "../Store/UserContext";
+
+function Signup() {
   const [email, setEmail] = useState(null);
   const [passwd, setPasswd] = useState(null);
   const [name, setName] = useState(null);
+  const userContext = useContext(UserContext);
 
   const mystylee = {
     backgroundColor: "powderblue",
+    height: "75vh",
   };
+
+  const history = useHistory();
+
   const onSubmitHandler = () => {
     const data = {
       name: name,
@@ -17,12 +25,24 @@ function Login() {
       password: passwd,
       role: "teacher",
     };
-    axios.post("localhost:4200/api/v1/auth/signup", data);
+    axios
+      .post("/api/v1/auth/signup", data)
+      .then((res) => {
+        const { data } = res;
+        const userData = decode(data.authToken);
+        userContext.setAuth(true);
+        userContext.setUser(userData);
+        userContext.setToken(data.authToken);
+        history.push("/teacher/home");
+      })
+      .catch((err) => {
+        const { response } = err;
+        alert(response.data.error);
+      });
   };
   return (
     <div>
-      <Navbar />
-      <div className="container" style={mystylee}>
+      <div className="container " style={mystylee}>
         <div className="row justify-content-center">
           <div className="col-11 col-lg-5">
             <div>
@@ -73,4 +93,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
