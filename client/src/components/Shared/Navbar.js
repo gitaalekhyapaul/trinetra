@@ -42,7 +42,8 @@ function Navbar() {
             </Link>
           ) : (
             <Link to="/" className="navbar-brand">
-              Trinetra
+              <i className="fas fa-eye" style={{ fontSize: "0.75em" }}></i>
+              <strong className="align-middle"> Trinetra</strong>
             </Link>
           )}
           {userContext.auth ? (

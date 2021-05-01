@@ -8,50 +8,12 @@ function Footer() {
           <section className="mb-2">
             <a
               class="btn btn-outline-light btn-floating m-1"
-              href="#!"
+              href="https://github.com/gitaalekhyapaul/trinetra"
               role="button"
+              rel="noreferrer"
+              target="_blank"
             >
-              <i class="fab fa-facebook-f"></i>
-            </a>
-
-            <a
-              class="btn btn-outline-light btn-floating m-1"
-              href="#!"
-              role="button"
-            >
-              <i class="fab fa-twitter"></i>
-            </a>
-
-            <a
-              class="btn btn-outline-light btn-floating m-1"
-              href="#!"
-              role="button"
-            >
-              <i class="fab fa-google"></i>
-            </a>
-
-            <a
-              class="btn btn-outline-light btn-floating m-1"
-              href="#!"
-              role="button"
-            >
-              <i class="fab fa-instagram"></i>
-            </a>
-
-            <a
-              class="btn btn-outline-light btn-floating m-1"
-              href="#!"
-              role="button"
-            >
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-
-            <a
-              class="btn btn-outline-light btn-floating m-1"
-              href="#!"
-              role="button"
-            >
-              <i class="fab fa-github"></i>
+              <i className="fab fa-github"></i>
             </a>
           </section>
 
@@ -70,7 +32,12 @@ function Footer() {
           style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
         >
           © 2020 Copyright:{" "}
-          <a className="text-white" href="/">
+          <a
+            className="text-white"
+            href="https://github.com/gitaalekhyapaul/trinetra"
+            rel="noreferrer"
+            target="_blank"
+          >
             ByteCoders
           </a>
         </div>
