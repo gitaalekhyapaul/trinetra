@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import Navbar from "./shared/navbar";
+import { decode } from "jsonwebtoken";
+import { UserContext } from "../Store/UserContext";
 
 function Login() {
   const [email, setEmail] = useState(null);
   const [passwd, setPasswd] = useState(null);
+  const userContext = useContext(UserContext);
   const mystylee = {
     backgroundColor: "powderblue",
+    height: "75vh",
   };
 
   const history = useHistory();
 
   const onSubmitHandler = () => {
     const data = { email: email, password: passwd };
-    axios.post("localhost:4200/api/v1/auth/login", data);
-    history.push("/teachome");
+    axios
+      .post("/api/v1/auth/login", data)
+      .then((res) => {
+        const { data } = res;
+        const userData = decode(data.authToken);
+        userContext.setAuth(true);
+        userContext.setUser(userData);
+        userContext.setToken(data.authToken);
+        history.push("/teacher/home");
+      })
+      .catch((err) => {
+        const { response } = err;
+        alert(response.data.error);
+      });
   };
 
   return (
     <div>
-      <Navbar />
       <div className="container " style={mystylee}>
         <div className="row justify-content-center">
           <div className="col-11 col-lg-5">
@@ -57,10 +71,10 @@ function Login() {
               Submit
             </button>
             <br></br>
-            <div className="">
-              Not Sigup?! Sign up now
-              <Link to="/student-signup" className="ml-auto mx-3">
-                <button className="btn btn-outline-info ">Sign Up</button>
+            <div className="py-4">
+              Not Signed Up? Sign Up now!
+              <Link to="/teacher/signup" className="ml-auto px-2">
+                <button className="btn btn-outline-info">Sign Up</button>
               </Link>
             </div>
           </div>
