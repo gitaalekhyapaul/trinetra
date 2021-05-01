@@ -38,3 +38,16 @@
     transform: rotate(360deg);
   }
 }
+
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
+}
+
+.site-container {
+  min-height: 100vh;
+  background-color: pink;
+  padding-bottom: 250px;
+}
