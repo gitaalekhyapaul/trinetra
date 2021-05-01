@@ -30,6 +30,7 @@ function ClassCard(props) {
 function Homepage() {
   const userContext = useContext(UserContext);
   const [classes, setClasses] = useState([]);
+  const [code, setCode] = useState("");
   useEffect(() => {
     async function getClasses() {
       try {
@@ -49,7 +50,43 @@ function Homepage() {
   const allClasses = classes.map((c, index) => (
     <ClassCard key={index} {...c} />
   ));
-  return <div className={styles["card-stack"]}>{allClasses}</div>;
+  const joinClassHandler = async () => {
+    try {
+      await axios.post(
+        "/api/v1/class/join",
+        { code: code },
+        {
+          headers: {
+            Authorization: `Bearer ${userContext.token}`,
+          },
+        }
+      );
+      setCode("");
+    } catch (err) {
+      const { response } = err;
+      alert(response.data.error);
+    }
+  };
+  return (
+    <>
+      <div class="input-group my-3 col-12 col-md-4 align-centre">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Class Code"
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <button
+          class="btn btn-success"
+          type="button"
+          onClick={() => joinClassHandler()}
+        >
+          Join Class
+        </button>
+      </div>
+      <div className={styles["card-stack"]}>{allClasses}</div>
+    </>
+  );
 }
 
 export default Homepage;
