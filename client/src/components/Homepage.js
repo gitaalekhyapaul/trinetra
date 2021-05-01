@@ -8,7 +8,7 @@ function Homepage(props) {
   };
   const mystylee = {
     backgroundColor: "powderblue",
-    height: "75vh",
+    minHeight: "75vh",
   };
   return (
     <div>
@@ -17,42 +17,38 @@ function Homepage(props) {
           <div className="row">
             <div className="col-sm-6">
               <div className="my-5">
-                <div className="">
-                  <img
-                    src="https://i.graphicmama.com/blog/wp-content/uploads/2017/01/27083023/handsome-school-boy-vector.jpg"
-                    alt="stupic"
-                    style={mystyle}
-                  />
-                </div>
-                <div className="my-3 mx-5">
                   <Link
                     to="/student/login"
                     className="ml-auto mx-3"
                     style={{ color: "black" }}
                   >
-                    Student Portal
-                  </Link>
-                </div>
+                <div className="">
+                    <img
+                      src="https://i.graphicmama.com/blog/wp-content/uploads/2017/01/27083023/handsome-school-boy-vector.jpg"
+                      alt="stupic"
+                      style={mystyle}
+                    />
+                  </div>
+                  <div className="my-3 mx-5">Student Portal</div>
+                </Link>
               </div>
             </div>
             <div className="col-sm-6">
               <div className="my-5">
-                <div className="">
-                  <img
-                    src="https://img.pngio.com/teaching-vector-teacher-man-graduation-cap-on-person-drawing-teacher-vector-png-920_1614.png"
-                    alt="teacherpic"
-                    style={mystyle}
-                  />
-                </div>
-                <div className="my-3 mx-4">
-                  <Link
-                    to="/teacher/login"
-                    className="ml-auto mx-3"
-                    style={{ color: "black" }}
-                  >
-                    Teacher Portal
-                  </Link>
-                </div>
+                <Link
+                  to="/teacher/login"
+                  className="ml-auto mx-3"
+                  style={{ color: "black" }}
+                >
+                  <div className="">
+                    <img
+                      src="https://img.pngio.com/teaching-vector-teacher-man-graduation-cap-on-person-drawing-teacher-vector-png-920_1614.png"
+                      alt="teacherpic"
+                      style={mystyle}
+                    />
+                  </div>
+                  <div className="my-3 mx-4">Teacher Portal</div>
+                </Link>
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ function ClassCard(props) {
       <img
         className="card-img-top"
         src="https://yt3.ggpht.com/ytc/AAUvwniZgi1B2MEAMI1hrYuk1AFy_9fv2cZDkaCNBop5AA=s900-c-k-c0x00ffffff-no-rj"
-        alt="CLASS10"
+        alt="CLASS"
       />
       <div className="card-body">
         <h4 className="card-title">{`Section: ${props.section}`}</h4>

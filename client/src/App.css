@@ -51,3 +51,7 @@ body,
   background-color: pink;
   padding-bottom: 250px;
 }
+
+.site-content {
+  min-height: 75vh;
+}

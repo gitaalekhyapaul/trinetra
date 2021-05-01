@@ -13,7 +13,7 @@ function Signup() {
 
   const mystylee = {
     backgroundColor: "powderblue",
-    height: "75vh",
+    minHeight: "75vh",
   };
 
   const history = useHistory();
