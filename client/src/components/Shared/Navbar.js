@@ -21,6 +21,11 @@ import { UserContext } from "../Store/UserContext";
 
 function Navbar() {
   const userContext = useContext(UserContext);
+
+  const logoutHandler = () => {
+    window.location.href = "/";
+  };
+
   return (
     <>
       <Router>
@@ -28,11 +33,25 @@ function Navbar() {
           className="navbar navbar-light"
           style={{ backgroundColor: "#e3f2fd" }}
         >
-          <Link to="/" className="navbar-brand">
-            {userContext.auth && userContext.user
-              ? `Welcome ${userContext.user.role}, ${userContext.user.name}!`
-              : "Trinetra"}
-          </Link>
+          {userContext.auth && userContext.user ? (
+            <Link
+              to={`/${userContext.user.role}/home`}
+              className="navbar-brand"
+            >
+              {`Welcome ${userContext.user.role}, ${userContext.user.name}!`}
+            </Link>
+          ) : (
+            <Link to="/" className="navbar-brand">
+              Trinetra
+            </Link>
+          )}
+          {userContext.auth ? (
+            <button className="btn btn-danger" onClick={() => logoutHandler()}>
+              Logout
+            </button>
+          ) : (
+            ""
+          )}
         </nav>
         <div className="site-content">
           <Switch>
