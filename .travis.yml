@@ -8,3 +8,12 @@ script:
   - yarn build
 os:
   - linux
+deploy:
+  provider: heroku
+  api_key:
+    secure: t06dORiVmkLOfoXQXo4y02CAqynKFvqD9h/ozH64tBUShDMueTNg9wIuViIfyAiOe2ZYnnng1EEp91zBqHGIXXM7AVH0UHmyHPd//Bobeg0QyIMfytS5Os2hVzJ+CTqPSO5WhNe2RoS6XdzHTumeVjOCvwA+qT+0atqMMKUUiuutBR9Yy3J9oqgmSUQzwWZvbVJ7V3eF0bwJF7+UcT4VEg710cl9L+r+otrzW+/voZcQ9Ow2nagb3k5tcCKQ2JmnSxPUB+TIB1+jl47XsKQHgQH9xhVqxxg4YzCAcaCiguKx00GLcT0kt9lxRPHVS2Y8H8/YV0sAeIK0XPictnnnsP3NUbosEnTQwwzzN4RxBR+yN2wOIR8zB6/JKOW8a1sERLL6kb+0tAKdvV/m6yefbLx37IDC3bdM1X2NVw/LNmvl+EkooV8ir2rdEAkWKf1j+46TNN6etr2yhbzK/nrucm9JdJCOPdte548lY+YdZTN3g2dDlcYx+hzqFfwuQBBTZxqf78kIlhkTfIFYSKSxroToH3WBeNf5dc9iJmRmfBdwtn3i45w1WKGmVLyhxeKluCQuMvu+Vmc/SHai8Vx5xyCRjIU7YNyvWnx2oCt8m3HZ6Mpc+e8tWbkda5t71Gcaumf7gIngViTvO5SivIvrtE8bZn/jDTeovXYY0hId64k=
+  app: trinetra-bytecoders
+  on:
+    repo: gitaalekhyapaul/trinetra
+    branch: main
+  skip_cleanup: "true"
