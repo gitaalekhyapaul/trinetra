@@ -3,6 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { UserContext } from "../Store/UserContext";
 import { Link } from "react-router-dom";
+import styles from "./TableView.module.css";
 
 function Table({ tableData }) {
   return (
@@ -20,7 +21,6 @@ function Table({ tableData }) {
           <th>P8</th>
         </tr>
       </thead>
-      {console.log(tableData)}
       <tbody>
         <tr>
           <td>D1</td>
