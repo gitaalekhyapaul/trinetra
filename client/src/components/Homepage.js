@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import studentLogo from "./Shared/student-logo.png";
+import teacherLogo from "./Shared/teacher-logo.png";
+
 function Homepage(props) {
   const mystyle = {
     width: "200px",
@@ -17,19 +20,17 @@ function Homepage(props) {
           <div className="row">
             <div className="col-sm-6">
               <div className="my-5">
-                  <Link
-                    to="/student/login"
-                    className="ml-auto mx-3"
-                    style={{ color: "black" }}
-                  >
-                <div className="">
-                    <img
-                      src="https://i.graphicmama.com/blog/wp-content/uploads/2017/01/27083023/handsome-school-boy-vector.jpg"
-                      alt="stupic"
-                      style={mystyle}
-                    />
+                <Link
+                  to="/student/login"
+                  className="ml-auto mx-3"
+                  style={{ color: "black" }}
+                >
+                  <div className="text-center">
+                    <img src={studentLogo} alt="stupic" style={mystyle} />
                   </div>
-                  <div className="my-3 mx-5">Student Portal</div>
+                  <div className="my-3 mx-4 text-center">
+                    <strong>Student Portal</strong>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -40,14 +41,12 @@ function Homepage(props) {
                   className="ml-auto mx-3"
                   style={{ color: "black" }}
                 >
-                  <div className="">
-                    <img
-                      src="https://img.pngio.com/teaching-vector-teacher-man-graduation-cap-on-person-drawing-teacher-vector-png-920_1614.png"
-                      alt="teacherpic"
-                      style={mystyle}
-                    />
+                  <div className="text-center">
+                    <img src={teacherLogo} alt="teacherpic" style={mystyle} />
                   </div>
-                  <div className="my-3 mx-4">Teacher Portal</div>
+                  <div className="my-3 mx-4 text-center">
+                    <strong>Teacher Portal</strong>
+                  </div>
                 </Link>
               </div>
             </div>

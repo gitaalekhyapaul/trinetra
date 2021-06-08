@@ -5,15 +5,12 @@ import axios from "axios";
 import styles from "./Homepage.module.css";
 
 import { UserContext } from "../Store/UserContext";
+import logo from "../Shared/class-logo.png";
 
 function ClassCard(props) {
   return (
     <div className="card shadow col-8 mx-auto my-3">
-      <img
-        className="card-img-top"
-        src="https://yt3.ggpht.com/ytc/AAUvwniZgi1B2MEAMI1hrYuk1AFy_9fv2cZDkaCNBop5AA=s900-c-k-c0x00ffffff-no-rj"
-        alt="CLASS"
-      />
+      <img className="card-img-top" src={logo} alt="CLASS" />
       <div className="card-body">
         <h4 className="card-title">{`Section: ${props.section}`}</h4>
         <p className="card-text">{`Code: ${props.code}`}</p>
